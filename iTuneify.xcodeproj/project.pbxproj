@@ -13,6 +13,8 @@
 		B942429917342AF1008D34EC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B942429717342AF1008D34EC /* Credits.rtf */; };
 		B942429C17342AF1008D34EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B942429B17342AF1008D34EC /* AppDelegate.m */; };
 		B942429F17342AF1008D34EC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B942429D17342AF1008D34EC /* MainMenu.xib */; };
+		B95E0EC517343F0800ECF808 /* applet.icns in Resources */ = {isa = PBXBuildFile; fileRef = B95E0EC417343F0800ECF808 /* applet.icns */; };
+		B95E0ECA173450D800ECF808 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95E0EC9173450D800ECF808 /* ScriptingBridge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,9 @@
 		B942429A17342AF1008D34EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B942429B17342AF1008D34EC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B942429E17342AF1008D34EC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B95E0EC417343F0800ECF808 /* applet.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = applet.icns; sourceTree = "<group>"; };
+		B95E0EC817344C4100ECF808 /* iTunes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
+		B95E0EC9173450D800ECF808 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95E0ECA173450D800ECF808 /* ScriptingBridge.framework in Frameworks */,
 				B942428917342AF1008D34EC /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,6 +52,8 @@
 		B942427C17342AF1008D34EC = {
 			isa = PBXGroup;
 			children = (
+				B95E0EC9173450D800ECF808 /* ScriptingBridge.framework */,
+				B95E0EC417343F0800ECF808 /* applet.icns */,
 				B942428E17342AF1008D34EC /* iTuneify */,
 				B942428717342AF1008D34EC /* Frameworks */,
 				B942428617342AF1008D34EC /* Products */,
@@ -82,6 +90,7 @@
 		B942428E17342AF1008D34EC /* iTuneify */ = {
 			isa = PBXGroup;
 			children = (
+				B95E0EC817344C4100ECF808 /* iTunes.h */,
 				B942429A17342AF1008D34EC /* AppDelegate.h */,
 				B942429B17342AF1008D34EC /* AppDelegate.m */,
 				B942429D17342AF1008D34EC /* MainMenu.xib */,
@@ -156,6 +165,7 @@
 				B942429317342AF1008D34EC /* InfoPlist.strings in Resources */,
 				B942429917342AF1008D34EC /* Credits.rtf in Resources */,
 				B942429F17342AF1008D34EC /* MainMenu.xib in Resources */,
+				B95E0EC517343F0800ECF808 /* applet.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +313,7 @@
 				B94242A417342AF1008D34EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
