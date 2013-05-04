@@ -11,36 +11,75 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
-@synthesize statusBar = _statusBar;
-@synthesize statusMenu = _statusMenu;
+
+static NSString *const REVEAL_SONG = @"RevealSong";
+static NSString *const DISPLAY_NOTIFICATIONS = @"DisplayNotifications";
 
 - (void) awakeFromNib {
+    
+    // Create statusbar item
     self.statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     
-    NSString* imageName = [[NSBundle mainBundle]pathForResource:@"applet" ofType:@"icns"];
-    NSImage* image = [[NSImage alloc] initWithContentsOfFile:imageName];
-    [image setSize:NSSizeFromString(@"17x17")];
-    self.statusBar.image = image;
+    // Set image
+    NSString* statusBarImageName = [[NSBundle mainBundle]pathForResource:@"applet" ofType:@"icns"];;
+    NSImage* statusBarImage = [[NSImage alloc] initWithContentsOfFile:statusBarImageName];
+    [statusBarImage setSize:NSSizeFromString(@"17x17")];
+    self.statusBar.image = statusBarImage;
     
+    // Add quit menu
     self.statusBar.menu = self.statusMenu;
     self.statusBar.highlightMode = YES;
-    NSDistributedNotificationCenter* DNC = [NSDistributedNotificationCenter defaultCenter];
-    [DNC addObserver:self selector:@selector(updateInfo:) name:@"com.apple.iTunes.playerInfo" object:nil];
+    
+    // Start observing iTunes
+    NSDistributedNotificationCenter* itunesDNC = [NSDistributedNotificationCenter defaultCenter];
+    [itunesDNC addObserver:self selector:@selector(updateInfo:) name:@"com.apple.iTunes.playerInfo" object:nil];
     
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], DISPLAY_NOTIFICATIONS,
+                                 [NSNumber numberWithBool:YES], REVEAL_SONG,
+                                 nil];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 }
 
 - (void) updateInfo:(NSNotification *)notification
 {
+    // Create scripting bridge to iTunes
     iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    NSDictionary *information = [notification userInfo];
-    NSLog(@"track information: %@", [information allKeys]);
-    [[iTunes currentTrack] reveal];
     
+    if ( [iTunes isRunning] ) {
+        
+        NSDictionary *information = [notification userInfo];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        if ( [[information valueForKey:@"Player State"]isEqualToString:@"Playing"]) {
+            
+            // Reveal currently playing track
+            if ( [defaults boolForKey:REVEAL_SONG]) {
+                [[iTunes currentTrack] reveal];
+            }
+            
+            // Display current song notification
+            if ( [defaults boolForKey:DISPLAY_NOTIFICATIONS]) {
+                [self showNotification:information];
+            }
+        }
+    }
+    
+}
+
+- (void)showNotification:(NSDictionary *)information{
+    NSUserNotification* notification = [[NSUserNotification alloc] init];
+    notification.title = [information valueForKey:@"Name"];
+    notification.subtitle = [information valueForKey:@"Artist"];
+    notification.informativeText = [information valueForKey:@"Album"];
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 

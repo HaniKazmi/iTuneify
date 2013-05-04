@@ -118,6 +118,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B94242A217342AF1008D34EC /* Build configuration list for PBXNativeTarget "iTuneify" */;
 			buildPhases = (
+				B95611C517350EC0003A2896 /* ShellScript */,
 				B942428117342AF1008D34EC /* Sources */,
 				B942428217342AF1008D34EC /* Frameworks */,
 				B942428317342AF1008D34EC /* Resources */,
@@ -170,6 +171,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B95611C517350EC0003A2896 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((bN += 1))\nbN=$(printf \"%d\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B942428117342AF1008D34EC /* Sources */ = {
